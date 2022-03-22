@@ -4,7 +4,7 @@ Coded by Robb Alexander, 2022
 
 ## Change Log
 
-### 03/21/22 (Lab 01: Beginning TaskMaster)
+### 03/21/22 (Lab 26: Beginning TaskMaster)
 
 * Initial project built
   
