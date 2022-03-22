@@ -6,20 +6,22 @@ Coded by Robb Alexander, 2022
 
 ### 03/21/22 (Lab 01: Beginning TaskMaster)
 
-* Built project
+* Initial project built
   
 * Created initial activities per wireframe provided
 
-  * Main
+  * Main activity renamed to **MyTasks**
 
-  * Add a task
+  * **AddTask** activity added
 
-  * Task view
+  * **MyTasks** activity added
 
-* TODO: Add screenshots! 
+* Added non-functional UI elements
 
-  * ![]()
+  * Added event listener to submit button on AddTaskActivity
 
-* TODO: Save APK in root!
+* Screenshots:
 
-* 
+  * ![Lab 01 Homepage](screenshots\Screenshot_20220321_204003.png)
+
+* APK created; copy located in project root
