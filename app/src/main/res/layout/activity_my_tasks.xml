@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyTasksActivity">
+
+    <TextView
+        android:id="@+id/myTasksTitleTextView"
+        android:layout_width="126dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="56dp"
+        android:fontFamily="monospace"
+        android:text="My Tasks"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/myTasksImageView"
+        android:layout_width="301dp"
+        android:layout_height="307dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="154dp"
+        tools:src="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/myTasksAddTaskButton"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="120dp"
+        android:text="ADD TASK"
+        app:layout_constraintStart_toStartOf="@+id/myTasksImageView"
+        app:layout_constraintTop_toBottomOf="@+id/myTasksImageView" />
+
+    <Button
+        android:id="@+id/myTaskAllTasksButton"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="120dp"
+        android:text="ALL TASKS"
+        app:layout_constraintEnd_toEndOf="@+id/myTasksImageView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/myTasksAddTaskButton"
+        app:layout_constraintTop_toBottomOf="@+id/myTasksImageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
