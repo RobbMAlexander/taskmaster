@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#E1BAA7"
     tools:context=".MyTasksActivity">
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_marginStart="68dp"
         android:layout_marginTop="56dp"
         android:fontFamily="monospace"
-        android:text="My Tasks"
+        android:text="@string/my_tasks"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,17 +23,21 @@
         android:id="@+id/myTasksImageView"
         android:layout_width="301dp"
         android:layout_height="307dp"
+        android:layout_marginTop="64dp"
+        android:tint="#673AB7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="154dp"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/myTasksTitleTextView"
+        tools:src="@tools:sample/avatars[2]" />
 
     <Button
         android:id="@+id/myTasksAddTaskButton"
         android:layout_width="130dp"
         android:layout_height="50dp"
         android:layout_marginTop="120dp"
-        android:text="ADD TASK"
+        android:backgroundTint="#B1DDE1"
+        android:text="@string/add_task"
+        android:textColor="#070707"
         app:layout_constraintStart_toStartOf="@+id/myTasksImageView"
         app:layout_constraintTop_toBottomOf="@+id/myTasksImageView" />
 
@@ -42,7 +47,9 @@
         android:layout_height="50dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="120dp"
-        android:text="ALL TASKS"
+        android:backgroundTint="#B1DDE1"
+        android:text="@string/all_tasks"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="@+id/myTasksImageView"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/myTasksAddTaskButton"
