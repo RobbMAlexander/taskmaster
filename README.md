@@ -44,8 +44,8 @@ Coded by Robb Alexander, 2022
 
 * Screenshots:
 
-  * ![]()
+  * ![Updated Main screen](screenshots/Screenshot_20220322_210119.png)
 
-  * ![]()
+  * ![Conditional Task Detail](screenshots/Screenshot_20220322_210139.png)
 
 * Updated APK in root
