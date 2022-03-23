@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TaskDetailActivity">
+
+    <TextView
+        android:id="@+id/taskDetailActivityTitleTextView"
+        android:layout_width="142dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="monospace"
+        android:text="@string/task_detail"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/taskDetailDetailTextTextView"
+        android:layout_width="329dp"
+        android:layout_height="238dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="84dp"
+        android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore_et_dolore_magna_aliqua_praesent_tristique_magna_sit_amet_purus_gravida_faucibus_et_molestie_ac_feugiat_elementum_sagittis_vitae_et_leo_duis_ut_diam_proin_sed_libero_enim_sed_faucibus_dignissim_sodales_ut_eu_sem_duis_at_tellus_at_urna_condimentum_mattis_ultricies_mi_eget_mauris_pharetra_auctor_urna_nunc_id_cursus_metus_aliquam_eleifend_pulvinar_neque_laoreet_suspendisse_interdum_consectetur_libero_id_cursus_in_hac_habitasse_platea_dictumst_faucibus_interdum_posuere_lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_dignissim_enim_sit_amet_venenatis_urna_cursus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taskDetailActivityTitleTextView" />
+</androidx.constraintlayout.widget.ConstraintLayout>
