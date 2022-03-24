@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".fragment.TaskFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/taskFragmentTextView"
+        android:layout_width="387dp"
+        android:layout_height="89dp"
+        android:background="#E8E1A8"
+        android:text="@string/hello_blank_fragment"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+</FrameLayout>

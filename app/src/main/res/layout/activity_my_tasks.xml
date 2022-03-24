@@ -5,24 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#E1BAA7"
-    tools:context=".MyTasksActivity">
-
-    <Button
-        android:id="@+id/myTasksTask2Button"
-        android:layout_width="145dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="128dp"
-        android:backgroundTint="#B1DDE1"
-        android:text="Task 2"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myTasksTitleTextView" />
+    tools:context=".activity.MyTasksActivity">
 
     <TextView
         android:id="@+id/myTasksTitleTextView"
-        android:layout_width="166dp"
-        android:layout_height="61dp"
+        android:layout_width="188dp"
+        android:layout_height="99dp"
         android:layout_marginStart="68dp"
         android:layout_marginTop="56dp"
         android:fontFamily="monospace"
@@ -30,7 +18,7 @@
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Target to set Username string" />
+        tools:text="Username string" />
 
     <Button
         android:id="@+id/myTasksAddTaskButton"
@@ -58,30 +46,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/myTasksAddTaskButton" />
 
-    <Button
-        android:id="@+id/myTasksTask1Button"
-        android:layout_width="145dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="48dp"
-        android:backgroundTint="#B1DDE1"
-        android:text="Task 1"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myTasksTitleTextView" />
-
-    <Button
-        android:id="@+id/myTasksTask3Button"
-        android:layout_width="145dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="212dp"
-        android:backgroundTint="#B1DDE1"
-        android:text="Task 3"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myTasksTitleTextView" />
-
     <ImageButton
         android:id="@+id/myTasksSettingsButton"
         android:layout_width="wrap_content"
@@ -91,5 +55,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_manage" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myTasksRecyclerView"
+        android:layout_width="387dp"
+        android:layout_height="203dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/myTasksAddTaskButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myTasksTitleTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,6 +46,27 @@ Coded by Robb Alexander, 2022
 
   * ![Updated Main screen](screenshots/Screenshot_20220322_210119.png)
 
-  * ![Conditional Task Detail](screenshots/Screenshot_20220322_210139.png)
+  * ![Conditional Task Tile](screenshots/Screenshot_20220322_210139.png)
 
 * Updated APK in root
+
+### 03/23/22 (Lab 28: RecyclerViews for Displaying Lists of Data)
+
+* Added RecyclerView functionality:
+
+    * **MyTasksRecyclerViewAdapter** class
+
+    * **fragment_task* fragment for
+
+    * **Task** class created
+
+* Debug:
+
+    * Fixed main title username display only updating on app restart
+
+* Screenshots:
+
+    * ![Home Screen With RecyclerView](screenshots/Screenshot_20220323_165650.png)
+
+* Updated APK in root
+
