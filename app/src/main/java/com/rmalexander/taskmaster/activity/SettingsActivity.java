@@ -1,4 +1,4 @@
-package com.rmalexander.taskmaster;
+package com.rmalexander.taskmaster.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.rmalexander.taskmaster.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -35,6 +38,9 @@ public class SettingsActivity extends AppCompatActivity {
                 String usernameString = usernameEditText.getText().toString();
                 preferencesEditor.putString(USERNAME_TAG, usernameString);
                 preferencesEditor.apply();
+
+                Snackbar.make(findViewById(R.id.settingsUsernameSubmitButton), "Settings Updated", Snackbar.LENGTH_SHORT).show();
+
             }
         });
 
