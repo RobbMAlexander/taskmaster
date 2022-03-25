@@ -23,14 +23,14 @@
         android:id="@+id/addTaskAddTaskButton"
         android:layout_width="110dp"
         android:layout_height="51dp"
-        android:layout_marginStart="56dp"
+        android:layout_marginStart="48dp"
         android:layout_marginBottom="160dp"
         android:backgroundTint="#B1DDE1"
         android:text="@string/add_task"
         android:textColor="#020202"
         app:layout_constraintBottom_toTopOf="@+id/addTaskTaskCounterTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddTaskTaskDescpritionTextEdit"
+        app:layout_constraintTop_toBottomOf="@+id/addTaskAddTaskSpinner"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toBottomOf="@+id/addTaskTextView1" />
 
     <EditText
-        android:id="@+id/AddTaskTaskDescpritionTextEdit"
+        android:id="@+id/addTaskTaskDescpritionTextEdit"
         android:layout_width="243dp"
         android:layout_height="59dp"
         android:layout_marginTop="72dp"
@@ -81,5 +81,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addTaskTaskTitleTextEdit" />
+
+    <Spinner
+        android:id="@+id/addTaskAddTaskSpinner"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addTaskTaskDescpritionTextEdit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

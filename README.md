@@ -70,3 +70,14 @@ Coded by Robb Alexander, 2022
 
 * Updated APK in root
 
+### 3/24/22 (Lab 29: Room)
+
+* Added dependencies and annotations for [Room](https://developer.android.com/jetpack/androidx/releases/room) database support
+
+    - Refactored **Task** class as @Entity for database usage
+
+* TaskDetail activity pulls
+
+* Screenshots:
+    * ![TaskDetail screen with db-sourced text](screenshots/Screenshot_20220324_231647.png)
+

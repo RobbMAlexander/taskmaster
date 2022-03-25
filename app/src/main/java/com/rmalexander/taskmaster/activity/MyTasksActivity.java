@@ -5,6 +5,7 @@ import static com.rmalexander.taskmaster.activity.SettingsActivity.USERNAME_TAG;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.rmalexander.taskmaster.R;
 import com.rmalexander.taskmaster.adapter.MyTasksRecyclerViewAdapter;
+import com.rmalexander.taskmaster.database.TaskMasterDatabase;
 import com.rmalexander.taskmaster.model.Task;
 
 import java.util.ArrayList;
@@ -26,17 +28,29 @@ public class MyTasksActivity extends AppCompatActivity {
     SharedPreferences userPreferences;
     MyTasksRecyclerViewAdapter adapter;
     public static final String TASK_TITLE_EXTRA_TAG = "taskTitle";
+    public static final String TASK_ID_EXTRA_TAG = "taskId";
+    List<Task> taskList = null;
+    TaskMasterDatabase taskMasterDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
 
+        taskMasterDatabase = Room.databaseBuilder(
+                getApplicationContext(),
+                TaskMasterDatabase.class,
+                "rmalexander_taskmaster")
+                .allowMainThreadQueries() //NOT FOR REAL-WORLD APPLICATIONS!
+                .build();
+        taskList = taskMasterDatabase.taskDao().findAll();
+
         wireSettingsButton();
         //wireTaskButtons();
         wireAddTaskButton();
         wireAllTasksButton();
         wireMyTasksRecyclerView();
+
 
     }
 
@@ -50,8 +64,9 @@ public class MyTasksActivity extends AppCompatActivity {
             TextView userTasksTitle = (TextView) findViewById(R.id.myTasksTitleTextView);
             String userTasksTitleText = username + "'s Tasks";
             userTasksTitle.setText(userTasksTitleText);
-
         }
+
+        taskList = taskMasterDatabase.taskDao().findAll();
     }
 
     private void wireAddTaskButton (){
@@ -118,14 +133,6 @@ public class MyTasksActivity extends AppCompatActivity {
         RecyclerView myTasksRecyclerView = (RecyclerView) findViewById(R.id.myTasksRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         myTasksRecyclerView.setLayoutManager(layoutManager);
-
-        List<Task> taskList = new ArrayList<>();
-        taskList.add(new Task("Feed Dog", "arf arf arf arf arf arf", Task.TaskState.Complete));
-        taskList.add(new Task("Walk Dog", "arf arf arf arf arf arf", Task.TaskState.InProgress));
-        taskList.add(new Task("Play with Dog","arf arf arf arf arf arf", Task.TaskState.New));
-        taskList.add(new Task("Vacuum Dog Hair","arf arf arf arf arf arf", Task.TaskState.Assigned));
-        taskList.add(new Task("Vet Appointment","arf arf arf arf arf arf", Task.TaskState.New));
-        taskList.add(new Task("Bathe Dog","arf arf arf arf arf arf", Task.TaskState.InProgress));
 
         adapter = new MyTasksRecyclerViewAdapter(taskList, this);
 
