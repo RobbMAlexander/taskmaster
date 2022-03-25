@@ -24,6 +24,7 @@ public class MyTasksRecyclerViewAdapter extends RecyclerView.Adapter<MyTasksRecy
 
     List<Task> taskList;
     Context callingActivity;
+    private Long id;
 
     public MyTasksRecyclerViewAdapter(List<Task> taskList, Context callingActivity){
 
@@ -44,12 +45,14 @@ public class MyTasksRecyclerViewAdapter extends RecyclerView.Adapter<MyTasksRecy
         TextView taskFragmentTextView = (TextView) holder.itemView.findViewById(R.id.taskFragmentTextView);
         String taskTitle = taskList.get(position).getTitle();
         String taskStateString = taskList.get(position).getState().taskStateString;
+        long taskId = taskList.get(position).getId();
         taskFragmentTextView.setText((position +1 ) + ". " + taskTitle + ": " + taskStateString);
 
         View taskViewHolder = holder.itemView;
         taskViewHolder.setOnClickListener(view -> {
             Intent goToTaskDetailIntent = new Intent(callingActivity, TaskDetailActivity.class);
-            goToTaskDetailIntent.putExtra(MyTasksActivity.TASK_TITLE_EXTRA_TAG, taskTitle);
+            goToTaskDetailIntent.putExtra(MyTasksActivity.TASK_ID_EXTRA_TAG, taskId);
+            //goToTaskDetailIntent.putExtra(MyTasksActivity.TASK_TITLE_EXTRA_TAG, taskTitle);
             callingActivity.startActivity(goToTaskDetailIntent);
         });
     }

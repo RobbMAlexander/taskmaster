@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/taskDetailDetailTextTextView"
+        android:id="@+id/taskDetailTaskBodyTextView"
         android:layout_width="329dp"
         android:layout_height="238dp"
         android:layout_marginStart="40dp"

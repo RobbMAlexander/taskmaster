@@ -1,8 +1,15 @@
 package com.rmalexander.taskmaster.model;
 
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.util.Date;
+
+@Entity
 public class Task {
 
-    public enum TaskState {
+    public enum TaskStateEnum {
         New("New"),
         Assigned("Assigned"),
         InProgress("In Progress"),
@@ -10,20 +17,25 @@ public class Task {
 
         public final String taskStateString;
 
-        private TaskState(String taskStateString) {
+        private TaskStateEnum(String taskStateString) {
             this.taskStateString = taskStateString;
         }
 
     }
 
-String title;
-String body;
-TaskState state;
+    @PrimaryKey(autoGenerate = true)
+    public Long id;
 
-    public Task(String title, String body, TaskState state){
+    String title;
+    String body;
+    TaskStateEnum state;
+    public Date dateAdded;
+
+    public Task(String title, String body, TaskStateEnum state) {
         this.title = title;
         this.body = body;
         this.state = state;
+        this.dateAdded = new Date();
     }
 
     public String getTitle() {
@@ -42,11 +54,20 @@ TaskState state;
         this.body = body;
     }
 
-    public TaskState getState() {
+    public TaskStateEnum getState() {
         return state;
     }
 
-    public void setState(TaskState state) {
+    public void setState(TaskStateEnum state) {
         this.state = state;
     }
+
+    public Date getDateAdded() {
+        return dateAdded;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
 }
