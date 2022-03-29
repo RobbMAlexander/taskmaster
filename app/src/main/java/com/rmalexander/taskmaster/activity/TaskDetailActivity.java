@@ -1,6 +1,7 @@
 package com.rmalexander.taskmaster.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,13 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         if (taskOriginIntent != null) {
             taskId = taskOriginIntent.getLongExtra(MyTasksActivity.TASK_ID_EXTRA_TAG, 0);
+
+            taskMasterDatabase = Room.databaseBuilder(
+                    getApplicationContext(),
+                    TaskMasterDatabase.class,
+                    "rmalexander_taskmaster")
+                    .allowMainThreadQueries() //NOT FOR REAL-WORLD APPLICATIONS!
+                    .build();
 
             //taskTitleString = taskOriginIntent.getStringExtra(MyTasksActivity.TASK_TITLE_EXTRA_TAG);
             taskTitleString = taskMasterDatabase.taskDao().findById(taskId).getTitle();

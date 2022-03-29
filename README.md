@@ -81,3 +81,16 @@ Coded by Robb Alexander, 2022
 * Screenshots:
     * ![TaskDetail screen with db-sourced text](screenshots/Screenshot_20220324_231647.png)
 
+### 3/28/22 (Lab 31: Espresso & Polish)
+
+* Fixed crash on task selection after Room integration
+
+* Fixed newly added Tasks only populating main page after app restart
+
+* Screenshots:
+
+* Added Espresso tests (note-- 1 Task is hard-coded to allow for some Intention testing after Room feature integration)
+  * 
+
+  *
+

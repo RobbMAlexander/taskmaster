@@ -46,10 +46,8 @@ public class MyTasksActivity extends AppCompatActivity {
         taskList = taskMasterDatabase.taskDao().findAll();
 
         wireSettingsButton();
-        //wireTaskButtons();
         wireAddTaskButton();
         wireAllTasksButton();
-        wireMyTasksRecyclerView();
 
 
     }
@@ -65,11 +63,11 @@ public class MyTasksActivity extends AppCompatActivity {
             String userTasksTitleText = username + "'s Tasks";
             userTasksTitle.setText(userTasksTitleText);
         }
-
         taskList = taskMasterDatabase.taskDao().findAll();
+        wireMyTasksRecyclerView();
     }
 
-    private void wireAddTaskButton (){
+    private void wireAddTaskButton() {
         Button addTaskButton = (Button) findViewById(R.id.myTasksAddTaskButton);
 
         addTaskButton.setOnClickListener(view ->
@@ -80,7 +78,7 @@ public class MyTasksActivity extends AppCompatActivity {
         );
     }
 
-    private void wireAllTasksButton (){
+    private void wireAllTasksButton() {
         Button allTasksButton = (Button) findViewById(R.id.myTasksAllTasksButton);
 
         allTasksButton.setOnClickListener(view ->
@@ -129,7 +127,7 @@ public class MyTasksActivity extends AppCompatActivity {
 
     }*/
 
-    private void wireMyTasksRecyclerView(){
+    private void wireMyTasksRecyclerView() {
         RecyclerView myTasksRecyclerView = (RecyclerView) findViewById(R.id.myTasksRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         myTasksRecyclerView.setLayoutManager(layoutManager);
