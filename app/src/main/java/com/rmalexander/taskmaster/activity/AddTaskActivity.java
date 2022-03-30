@@ -1,57 +1,61 @@
 package com.rmalexander.taskmaster.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.temporal.Temporal;
+import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.TaskProgressEnum;
 import com.google.android.material.snackbar.Snackbar;
 import com.rmalexander.taskmaster.R;
-import com.rmalexander.taskmaster.database.TaskMasterDatabase;
-import com.rmalexander.taskmaster.model.Task;
 
 import java.util.Date;
 
 public class AddTaskActivity extends AppCompatActivity {
 
-    TaskMasterDatabase taskMasterDatabase;
+    public static final String TAG = "AddTaskActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        taskMasterDatabase = Room.databaseBuilder(
-                getApplicationContext(),
-                TaskMasterDatabase.class,
-                "rmalexander_taskmaster")
-                .allowMainThreadQueries() //NOT FOR REAL-WORLD APPLICATIONS!
-                .build();
-
         Spinner taskSpinner = (Spinner) findViewById(R.id.addTaskAddTaskSpinner);
-        taskSpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                Task.TaskStateEnum.values()));
+        taskSpinner.setAdapter(new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                TaskProgressEnum.values()));
 
         Button addTaskButton = (Button) findViewById(R.id.addTaskAddTaskButton);
 
         addTaskButton.setOnClickListener(view ->{
              {
-                Task addedTask = new Task(
-                        ((EditText) findViewById(R.id.addTaskTaskTitleTextEdit)).getText().toString(),
-                        ((EditText) findViewById(R.id.addTaskTaskDescpritionTextEdit)).getText().toString(),
-                        Task.TaskStateEnum.valueOf(taskSpinner.getSelectedItem().toString())
-            );
-                taskMasterDatabase.taskDao().insertTask(addedTask);
-                //TODO: add toast/snackbar for text confirmation
+                 String title = ((EditText)findViewById(R.id.addTaskTaskTitleTextEdit)).getText().toString();
+                 String description = ((EditText)findViewById(R.id.addTaskTaskDescpritionTextEdit)).getText().toString();
+                 String timeStampString = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
+
+                 Task addedTask = Task.builder()
+                         .title(title)
+                         .description(description)
+                         .dateAdded(new Temporal.DateTime(timeStampString))
+                         .progress((TaskProgressEnum) taskSpinner.getSelectedItem())
+                         .build();
+
+                 Amplify.API.mutate(
+                         ModelMutation.create(addedTask),
+                         successResponse -> Log.i(TAG, "AddTaskActivity.onCreate(): successfully added a new task"),
+                         failureResponse -> Log.i(TAG, "AddTaskActivity.onCreate(): failed to add new task -- " + failureResponse)
+                 );
+
                  Snackbar.make(findViewById(R.id.addTaskAddTaskButton), "Settings Updated", Snackbar.LENGTH_SHORT).show();
-                //((TextView) findViewById(R.id.addTaskSubmitTextView)).setText(R.string.task_added);
             }
         });
 

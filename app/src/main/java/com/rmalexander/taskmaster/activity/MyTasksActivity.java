@@ -5,57 +5,71 @@ import static com.rmalexander.taskmaster.activity.SettingsActivity.USERNAME_TAG;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.temporal.Temporal;
+import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.TaskProgressEnum;
 import com.rmalexander.taskmaster.R;
 import com.rmalexander.taskmaster.adapter.MyTasksRecyclerViewAdapter;
-import com.rmalexander.taskmaster.database.TaskMasterDatabase;
-import com.rmalexander.taskmaster.model.Task;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MyTasksActivity extends AppCompatActivity {
 
     SharedPreferences userPreferences;
     MyTasksRecyclerViewAdapter adapter;
+    public final String TAG = "MyTasksActivity";
     public static final String TASK_TITLE_EXTRA_TAG = "taskTitle";
     public static final String TASK_ID_EXTRA_TAG = "taskId";
     List<Task> taskList = null;
-    TaskMasterDatabase taskMasterDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
 
-        taskMasterDatabase = Room.databaseBuilder(
-                getApplicationContext(),
-                TaskMasterDatabase.class,
-                "rmalexander_taskmaster")
-                .allowMainThreadQueries() //NOT FOR REAL-WORLD APPLICATIONS!
-                .build();
-        taskList = taskMasterDatabase.taskDao().findAll();
 
         wireSettingsButton();
         wireAddTaskButton();
         wireAllTasksButton();
 
+        String testDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
+
+        com.amplifyframework.datastore.generated.model.Task testTask =
+                com.amplifyframework.datastore.generated.model.Task.builder()
+                    .title("Test app")
+                    .description("functionality")
+                    .dateAdded(new Temporal.DateTime(testDate))
+                    .progress(TaskProgressEnum.New)
+                    .build();
+        Amplify.API.mutate(
+                ModelMutation.create(testTask),
+                successResponse -> Log.i(TAG, "MyTasksActivity.onCreate(): successfully created new Task"),
+                failureResponse -> Log.i(TAG, "MyTasksActivity.onCreate(): failed --" + failureResponse)
+        );
+                taskList = new ArrayList<>();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //TODO: refactor for preference load on onCreate?
+
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String username = userPreferences.getString(USERNAME_TAG, "");
         if (!username.equals("")) {
@@ -63,7 +77,24 @@ public class MyTasksActivity extends AppCompatActivity {
             String userTasksTitleText = username + "'s Tasks";
             userTasksTitle.setText(userTasksTitleText);
         }
-        taskList = taskMasterDatabase.taskDao().findAll();
+
+        Amplify.API.query(
+                ModelQuery.list(Task.class),
+                success ->
+                {
+                    Log.i(TAG, "Successfully loaded taskList");
+                    taskList.clear();
+                    for (Task databaseTask : success.getData()){
+                        taskList.add(databaseTask);
+                    }
+
+                    runOnUiThread(() -> {
+                        adapter.notifyDataSetChanged();
+                            });
+                },
+                failure -> Log.i(TAG, "Failed to load taskList")
+        );
+
         wireMyTasksRecyclerView();
     }
 
@@ -101,31 +132,6 @@ public class MyTasksActivity extends AppCompatActivity {
 
     }
 
-    // TODO: Remove deprecated hard-coded task buttons when done attempting programmatic generation
-    /*private void wireTaskButtons() {
-        Button [] taskButtonsArr = new Button[3];
-        Button task1Button = (Button) findViewById(R.id.myTasksTask1Button);
-        Button task2Button = (Button) findViewById(R.id.myTasksTask2Button);
-        Button task3Button = (Button) findViewById(R.id.myTasksTask3Button);
-
-        taskButtonsArr[0]= task1Button;
-        taskButtonsArr[1]= task2Button;
-        taskButtonsArr[2]= task3Button;
-
-        for (int i = 0; i < taskButtonsArr.length; i++) {
-            int buttonIterator = i;
-            taskButtonsArr[i].setOnClickListener(view ->
-                    {
-                        String taskName = ((Button) taskButtonsArr[buttonIterator]).getText().toString();
-
-                        Intent goToTaskDetailIntent = new Intent(MyTasksActivity.this, TaskDetailActivity.class);
-                        goToTaskDetailIntent.putExtra(TASK_TITLE_EXTRA_TAG, taskName);
-                        startActivity(goToTaskDetailIntent);
-                    }
-            );
-        }
-
-    }*/
 
     private void wireMyTasksRecyclerView() {
         RecyclerView myTasksRecyclerView = (RecyclerView) findViewById(R.id.myTasksRecyclerView);

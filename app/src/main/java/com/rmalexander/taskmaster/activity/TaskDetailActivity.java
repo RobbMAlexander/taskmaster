@@ -1,18 +1,15 @@
 package com.rmalexander.taskmaster.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.rmalexander.taskmaster.R;
-import com.rmalexander.taskmaster.database.TaskMasterDatabase;
 
 public class TaskDetailActivity extends AppCompatActivity {
 
-    TaskMasterDatabase taskMasterDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +23,9 @@ public class TaskDetailActivity extends AppCompatActivity {
         if (taskOriginIntent != null) {
             taskId = taskOriginIntent.getLongExtra(MyTasksActivity.TASK_ID_EXTRA_TAG, 0);
 
-            taskMasterDatabase = Room.databaseBuilder(
-                    getApplicationContext(),
-                    TaskMasterDatabase.class,
-                    "rmalexander_taskmaster")
-                    .allowMainThreadQueries() //NOT FOR REAL-WORLD APPLICATIONS!
-                    .build();
 
             //taskTitleString = taskOriginIntent.getStringExtra(MyTasksActivity.TASK_TITLE_EXTRA_TAG);
-            taskTitleString = taskMasterDatabase.taskDao().findById(taskId).getTitle();
 
-            taskBodyString = taskMasterDatabase.taskDao().findById(taskId).getBody();
         }
 
         TextView taskDetailTitleTextView = (TextView) findViewById(R.id.taskDetailActivityTitleTextView);

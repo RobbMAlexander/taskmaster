@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "taskmaster",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\Robb\\GitHub\\codeFellows\\401-java\\TaskMaster\\amplify\\backend\\api\\taskmaster\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2023-03-29T16:56:21.369Z",
+      "keyDescription": ""
+    }
+  }
+}
