@@ -10,12 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.datastore.generated.model.Task;
 import com.rmalexander.taskmaster.R;
 import com.rmalexander.taskmaster.activity.MyTasksActivity;
 import com.rmalexander.taskmaster.activity.TaskDetailActivity;
-import com.rmalexander.taskmaster.model.Task;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -44,8 +42,8 @@ public class MyTasksRecyclerViewAdapter extends RecyclerView.Adapter<MyTasksRecy
     public void onBindViewHolder(@NonNull TaskListViewHolder holder, int position) {
         TextView taskFragmentTextView = (TextView) holder.itemView.findViewById(R.id.taskFragmentTextView);
         String taskTitle = taskList.get(position).getTitle();
-        String taskStateString = taskList.get(position).getState().taskStateString;
-        long taskId = taskList.get(position).getId();
+        String taskStateString = taskList.get(position).getProgress().toString();
+        String taskId = taskList.get(position).getId();
         taskFragmentTextView.setText((position +1 ) + ". " + taskTitle + ": " + taskStateString);
 
         View taskViewHolder = holder.itemView;
