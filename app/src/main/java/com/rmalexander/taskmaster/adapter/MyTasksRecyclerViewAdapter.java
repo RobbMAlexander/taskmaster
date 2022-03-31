@@ -2,6 +2,7 @@ package com.rmalexander.taskmaster.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,17 @@ import com.rmalexander.taskmaster.R;
 import com.rmalexander.taskmaster.activity.MyTasksActivity;
 import com.rmalexander.taskmaster.activity.TaskDetailActivity;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class MyTasksRecyclerViewAdapter extends RecyclerView.Adapter<MyTasksRecyclerViewAdapter.TaskListViewHolder> {
 
+    public static String TAG = "MyTasksRecyclerViewAdapter";
 
     List<Task> taskList;
     Context callingActivity;
@@ -41,16 +49,24 @@ public class MyTasksRecyclerViewAdapter extends RecyclerView.Adapter<MyTasksRecy
     @Override
     public void onBindViewHolder(@NonNull TaskListViewHolder holder, int position) {
         TextView taskFragmentTextView = (TextView) holder.itemView.findViewById(R.id.taskFragmentTextView);
-        String taskTitle = taskList.get(position).getTitle();
-        String taskStateString = taskList.get(position).getProgress().toString();
-        String taskId = taskList.get(position).getId();
-        taskFragmentTextView.setText((position +1 ) + ". " + taskTitle + ": " + taskStateString);
+        Task displayedTask = taskList.get(position);
+        DateFormat timeStampFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        timeStampFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String timeStampString = "";
+
+        try{
+            {
+                Date timeStampFormattedDate = timeStampFormat.parse(displayedTask.getDateAdded().format());
+            }
+        }
+        catch (ParseException parseException) {
+            Log.e(TAG, "Failed to reformat timestamp: " + parseException.getMessage(), parseException);
+        }
 
         View taskViewHolder = holder.itemView;
         taskViewHolder.setOnClickListener(view -> {
             Intent goToTaskDetailIntent = new Intent(callingActivity, TaskDetailActivity.class);
-            goToTaskDetailIntent.putExtra(MyTasksActivity.TASK_ID_EXTRA_TAG, taskId);
-            //goToTaskDetailIntent.putExtra(MyTasksActivity.TASK_TITLE_EXTRA_TAG, taskTitle);
+            goToTaskDetailIntent.putExtra(MyTasksActivity.TASK_ID_EXTRA_TAG, displayedTask.getId());
             callingActivity.startActivity(goToTaskDetailIntent);
         });
     }

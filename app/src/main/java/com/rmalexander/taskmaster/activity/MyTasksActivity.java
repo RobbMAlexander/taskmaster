@@ -21,6 +21,7 @@ import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.TaskProgressEnum;
+import com.amplifyframework.datastore.generated.model.Team;
 import com.rmalexander.taskmaster.R;
 import com.rmalexander.taskmaster.adapter.MyTasksRecyclerViewAdapter;
 
@@ -43,6 +44,7 @@ public class MyTasksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
 
+        seedTeams();
 
         wireSettingsButton();
         wireAddTaskButton();
@@ -50,7 +52,7 @@ public class MyTasksActivity extends AppCompatActivity {
 
         String testDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
 
-        com.amplifyframework.datastore.generated.model.Task testTask =
+        /*com.amplifyframework.datastore.generated.model.Task testTask =
                 com.amplifyframework.datastore.generated.model.Task.builder()
                     .title("Test app")
                     .description("functionality")
@@ -61,7 +63,7 @@ public class MyTasksActivity extends AppCompatActivity {
                 ModelMutation.create(testTask),
                 successResponse -> Log.i(TAG, "MyTasksActivity.onCreate(): successfully created new Task"),
                 failureResponse -> Log.i(TAG, "MyTasksActivity.onCreate(): failed --" + failureResponse)
-        );
+        );*/
                 taskList = new ArrayList<>();
 
     }
@@ -78,7 +80,7 @@ public class MyTasksActivity extends AppCompatActivity {
             userTasksTitle.setText(userTasksTitleText);
         }
 
-        Amplify.API.query(
+        /*Amplify.API.query(
                 ModelQuery.list(Task.class),
                 success ->
                 {
@@ -93,7 +95,7 @@ public class MyTasksActivity extends AppCompatActivity {
                             });
                 },
                 failure -> Log.i(TAG, "Failed to load taskList")
-        );
+        );*/
 
         wireMyTasksRecyclerView();
     }
@@ -141,6 +143,39 @@ public class MyTasksActivity extends AppCompatActivity {
         adapter = new MyTasksRecyclerViewAdapter(taskList, this);
 
         myTasksRecyclerView.setAdapter(adapter);
+    }
+
+    private void seedTeams(){
+        Team teamOne =
+                Team.builder()
+                .teamName("Uno")
+                .build();
+        Amplify.API.mutate(
+          ModelMutation.create(teamOne),
+                successResponse -> Log.i(TAG, "MyTasksActivity.seedTeams(): Successfully created Team 1"),
+                failureResponse -> Log.i(TAG, "MyTasksActivity.seedTeams(): Failed to create Team 1")
+        );
+
+        Team teamTwo =
+                Team.builder()
+                        .teamName("Dos")
+                        .build();
+        Amplify.API.mutate(
+                ModelMutation.create(teamTwo),
+                successResponse -> Log.i(TAG, "MyTasksActivity.seedTeams(): Successfully created Team 2"),
+                failureResponse -> Log.i(TAG, "MyTasksActivity.seedTeams(): Failed to create Team 2")
+        );
+
+        Team teamThree =
+                Team.builder()
+                        .teamName("Tres")
+                        .build();
+        Amplify.API.mutate(
+                ModelMutation.create(teamThree),
+                successResponse -> Log.i(TAG, "MyTasksActivity.seedTeams(): Successfully created Team 3"),
+                failureResponse -> Log.i(TAG, "MyTasksActivity.seedTeams(): Failed to create Team 3")
+        );
+
     }
 
 }

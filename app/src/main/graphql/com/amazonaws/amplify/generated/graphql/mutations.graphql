@@ -9,11 +9,18 @@ mutation CreateTask(
     description
     dateAdded
     progress
+    teamId
+    teamName {
+      id
+      teamName
+      teamTasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateTask(
@@ -26,11 +33,18 @@ mutation UpdateTask(
     description
     dateAdded
     progress
+    teamId
+    teamName {
+      id
+      teamName
+      teamTasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteTask(
@@ -43,10 +57,89 @@ mutation DeleteTask(
     description
     dateAdded
     progress
+    teamId
+    teamName {
+      id
+      teamName
+      teamTasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
+  }
+}
+mutation CreateTeam(
+  $input: CreateTeamInput!
+  $condition: ModelTeamConditionInput
+) {
+  createTeam(input: $input, condition: $condition) {
+    id
+    teamName
+    teamTasks {
+      items {
+        id
+        title
+        description
+        dateAdded
+        progress
+        teamId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateTeam(
+  $input: UpdateTeamInput!
+  $condition: ModelTeamConditionInput
+) {
+  updateTeam(input: $input, condition: $condition) {
+    id
+    teamName
+    teamTasks {
+      items {
+        id
+        title
+        description
+        dateAdded
+        progress
+        teamId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteTeam(
+  $input: DeleteTeamInput!
+  $condition: ModelTeamConditionInput
+) {
+  deleteTeam(input: $input, condition: $condition) {
+    id
+    teamName
+    teamTasks {
+      items {
+        id
+        title
+        description
+        dateAdded
+        progress
+        teamId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
   }
 }
