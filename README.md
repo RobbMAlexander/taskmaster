@@ -92,6 +92,19 @@ Coded by Robb Alexander, 2022
 * Added Espresso tests (note-- 1 Task is hard-coded to allow for some Intention testing after Room feature integration)
   * 
 
-  *
+### 3/29/22 (Lab 32: Amplify and DynamoDB)
 
-### 3/29/22 (Lab 32: )
+* Removed all previous Room functionality and references
+
+* Removed existing data models for Task objects
+
+  * Replaced with AWS-generated classes per schema (along with enum for field `progress`)
+
+* Added AWS Amplify functionality for database use
+
+### 3/30/22 (Lab 33: Related Data)
+
+* Added Team model with one-to-many relationship to Task
+    * Updated references to Task and constructors in-app accordingly
+
+

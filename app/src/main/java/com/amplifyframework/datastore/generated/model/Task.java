@@ -1,6 +1,7 @@
 package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
+import com.amplifyframework.core.model.annotations.BelongsTo;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,17 +25,20 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 @ModelConfig(pluralName = "Tasks", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
+@Index(name = "byTeam", fields = {"teamId","title"})
 public final class Task implements Model {
   public static final QueryField ID = field("Task", "id");
   public static final QueryField TITLE = field("Task", "title");
   public static final QueryField DESCRIPTION = field("Task", "description");
   public static final QueryField DATE_ADDED = field("Task", "dateAdded");
   public static final QueryField PROGRESS = field("Task", "progress");
+  public static final QueryField TEAM = field("Task", "teamId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String") String description;
   private final @ModelField(targetType="AWSDateTime") Temporal.DateTime dateAdded;
   private final @ModelField(targetType="TaskProgressEnum") TaskProgressEnum progress;
+  private final @ModelField(targetType="Team") @BelongsTo(targetName = "teamId", type = Team.class) Team team;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -57,6 +61,10 @@ public final class Task implements Model {
       return progress;
   }
   
+  public Team getTeam() {
+      return team;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -65,12 +73,13 @@ public final class Task implements Model {
       return updatedAt;
   }
   
-  private Task(String id, String title, String description, Temporal.DateTime dateAdded, TaskProgressEnum progress) {
+  private Task(String id, String title, String description, Temporal.DateTime dateAdded, TaskProgressEnum progress, Team team) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.dateAdded = dateAdded;
     this.progress = progress;
+    this.team = team;
   }
   
   @Override
@@ -86,6 +95,7 @@ public final class Task implements Model {
               ObjectsCompat.equals(getDescription(), task.getDescription()) &&
               ObjectsCompat.equals(getDateAdded(), task.getDateAdded()) &&
               ObjectsCompat.equals(getProgress(), task.getProgress()) &&
+              ObjectsCompat.equals(getTeam(), task.getTeam()) &&
               ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt());
       }
@@ -99,6 +109,7 @@ public final class Task implements Model {
       .append(getDescription())
       .append(getDateAdded())
       .append(getProgress())
+      .append(getTeam())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -114,6 +125,7 @@ public final class Task implements Model {
       .append("description=" + String.valueOf(getDescription()) + ", ")
       .append("dateAdded=" + String.valueOf(getDateAdded()) + ", ")
       .append("progress=" + String.valueOf(getProgress()) + ", ")
+      .append("team=" + String.valueOf(getTeam()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -138,6 +150,7 @@ public final class Task implements Model {
       null,
       null,
       null,
+      null,
       null
     );
   }
@@ -147,7 +160,8 @@ public final class Task implements Model {
       title,
       description,
       dateAdded,
-      progress);
+      progress,
+      team);
   }
   public interface TitleStep {
     BuildStep title(String title);
@@ -160,6 +174,7 @@ public final class Task implements Model {
     BuildStep description(String description);
     BuildStep dateAdded(Temporal.DateTime dateAdded);
     BuildStep progress(TaskProgressEnum progress);
+    BuildStep team(Team team);
   }
   
 
@@ -169,6 +184,7 @@ public final class Task implements Model {
     private String description;
     private Temporal.DateTime dateAdded;
     private TaskProgressEnum progress;
+    private Team team;
     @Override
      public Task build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -178,7 +194,8 @@ public final class Task implements Model {
           title,
           description,
           dateAdded,
-          progress);
+          progress,
+          team);
     }
     
     @Override
@@ -206,6 +223,12 @@ public final class Task implements Model {
         return this;
     }
     
+    @Override
+     public BuildStep team(Team team) {
+        this.team = team;
+        return this;
+    }
+    
     /** 
      * @param id id
      * @return Current Builder instance, for fluent method chaining
@@ -218,12 +241,13 @@ public final class Task implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String description, Temporal.DateTime dateAdded, TaskProgressEnum progress) {
+    private CopyOfBuilder(String id, String title, String description, Temporal.DateTime dateAdded, TaskProgressEnum progress, Team team) {
       super.id(id);
       super.title(title)
         .description(description)
         .dateAdded(dateAdded)
-        .progress(progress);
+        .progress(progress)
+        .team(team);
     }
     
     @Override
@@ -244,6 +268,11 @@ public final class Task implements Model {
     @Override
      public CopyOfBuilder progress(TaskProgressEnum progress) {
       return (CopyOfBuilder) super.progress(progress);
+    }
+    
+    @Override
+     public CopyOfBuilder team(Team team) {
+      return (CopyOfBuilder) super.team(team);
     }
   }
   

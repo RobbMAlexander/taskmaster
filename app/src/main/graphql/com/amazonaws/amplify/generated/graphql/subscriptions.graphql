@@ -6,11 +6,18 @@ subscription OnCreateTask {
     description
     dateAdded
     progress
+    teamId
+    teamName {
+      id
+      teamName
+      teamTasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateTask {
@@ -20,11 +27,18 @@ subscription OnUpdateTask {
     description
     dateAdded
     progress
+    teamId
+    teamName {
+      id
+      teamName
+      teamTasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteTask {
@@ -34,10 +48,80 @@ subscription OnDeleteTask {
     description
     dateAdded
     progress
+    teamId
+    teamName {
+      id
+      teamName
+      teamTasks {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
+  }
+}
+subscription OnCreateTeam {
+  onCreateTeam {
+    id
+    teamName
+    teamTasks {
+      items {
+        id
+        title
+        description
+        dateAdded
+        progress
+        teamId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTeam {
+  onUpdateTeam {
+    id
+    teamName
+    teamTasks {
+      items {
+        id
+        title
+        description
+        dateAdded
+        progress
+        teamId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTeam {
+  onDeleteTeam {
+    id
+    teamName
+    teamTasks {
+      items {
+        id
+        title
+        description
+        dateAdded
+        progress
+        teamId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
   }
 }

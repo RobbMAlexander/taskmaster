@@ -2,6 +2,7 @@ package com.rmalexander.taskmaster.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -30,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         Button settingsUpdateButton = findViewById(R.id.settingsUsernameSubmitButton);
+        Context settingsActivity = this;
         settingsUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
