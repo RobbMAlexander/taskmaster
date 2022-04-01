@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class AddTaskActivity extends AppCompatActivity {
 
@@ -45,8 +46,8 @@ public class AddTaskActivity extends AppCompatActivity {
         //TODO: bring in Team objects
         teamListFuture = new CompletableFuture<>();
 
-        wireAddTaskSpinners();
-        wireAddTaskButton();
+       wireAddTaskSpinners();
+      wireAddTaskButton();
 
     }
 
@@ -88,6 +89,7 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     private void wireAddTaskButton() {
+
         Button addTaskButton = (Button) findViewById(R.id.addTaskAddTaskButton);
 
         addTaskButton.setOnClickListener(view -> {
@@ -95,14 +97,26 @@ public class AddTaskActivity extends AppCompatActivity {
                 String title = ((EditText) findViewById(R.id.addTaskTaskTitleTextEdit)).getText().toString();
                 String description = ((EditText) findViewById(R.id.addTaskTaskDescpritionTextEdit)).getText().toString();
                 String timeStampString = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
-                Team selectedTeam = (Team) teamSelectSpinner.getSelectedItem();
+                String selectedTeamString = teamSelectSpinner.getSelectedItem().toString();
+
+                List<Team> teamList = null;
+                try {
+                    teamList = teamListFuture.get();
+                } catch (InterruptedException interruptedException){
+                    Log.e(TAG, "InterruptedException occurred during: teamListFuture.get()");
+                    Thread.currentThread().interrupt();
+            } catch (ExecutionException executionException) {
+                    Log.e(TAG, "ExecutionException occurred during: teamListFuture.get()");
+                }
+
+                Team selectedTeam = teamList.stream().filter(team -> team.getTeamName().equals(selectedTeamString)).findAny().orElseThrow(RuntimeException::new);
 
                 Task addedTask = Task.builder()
                         .title(title)
                         .description(description)
                         .dateAdded(new Temporal.DateTime(timeStampString))
                         .progress((TaskProgressEnum) taskProgressSpinner.getSelectedItem())
-                        .team(selectedTeam)
+                        .teamName(selectedTeam)
                         .build();
 
                 Amplify.API.mutate(
@@ -111,7 +125,7 @@ public class AddTaskActivity extends AppCompatActivity {
                         failureResponse -> Log.i(TAG, "AddTaskActivity.onCreate(): failed to add new task -- " + failureResponse)
                 );
 
-                Snackbar.make(findViewById(R.id.addTaskAddTaskButton), "Settings Updated", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.addTaskAddTaskButton), "Task Added", Snackbar.LENGTH_SHORT).show();
             }
         });
 

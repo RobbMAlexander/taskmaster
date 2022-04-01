@@ -44,7 +44,7 @@ public class MyTasksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tasks);
 
-        seedTeams();
+        //seedTeams();
 
         wireSettingsButton();
         wireAddTaskButton();
@@ -52,12 +52,28 @@ public class MyTasksActivity extends AppCompatActivity {
 
         String testDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
 
-        /*com.amplifyframework.datastore.generated.model.Task testTask =
-                com.amplifyframework.datastore.generated.model.Task.builder()
+        List<Team> teamList = new ArrayList<>();
+
+        /*Amplify.API.query(
+                ModelQuery.list(Team.class),
+                success ->
+                {
+                    Log.i(TAG, "Successfully loaded teamList");
+                    teamList.clear();
+                    for (Team databaseTeam : success.getData()){
+                        teamList.add(databaseTeam);
+                    };
+                },
+                failure -> Log.i(TAG, "Failed to load teamList")
+        );*/
+
+        /*Task testTask =
+                Task.builder()
                     .title("Test app")
                     .description("functionality")
                     .dateAdded(new Temporal.DateTime(testDate))
                     .progress(TaskProgressEnum.New)
+                        .teamName(Team teamOne)
                     .build();
         Amplify.API.mutate(
                 ModelMutation.create(testTask),
@@ -80,7 +96,7 @@ public class MyTasksActivity extends AppCompatActivity {
             userTasksTitle.setText(userTasksTitleText);
         }
 
-        /*Amplify.API.query(
+        Amplify.API.query(
                 ModelQuery.list(Task.class),
                 success ->
                 {
@@ -95,7 +111,7 @@ public class MyTasksActivity extends AppCompatActivity {
                             });
                 },
                 failure -> Log.i(TAG, "Failed to load taskList")
-        );*/
+        );
 
         wireMyTasksRecyclerView();
     }
@@ -145,7 +161,7 @@ public class MyTasksActivity extends AppCompatActivity {
         myTasksRecyclerView.setAdapter(adapter);
     }
 
-    private void seedTeams(){
+    /*private void seedTeams(){
         Team teamOne =
                 Team.builder()
                 .teamName("Uno")
@@ -176,6 +192,6 @@ public class MyTasksActivity extends AppCompatActivity {
                 failureResponse -> Log.i(TAG, "MyTasksActivity.seedTeams(): Failed to create Team 3")
         );
 
-    }
+    }*/
 
 }

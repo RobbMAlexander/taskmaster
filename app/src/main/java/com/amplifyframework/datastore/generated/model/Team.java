@@ -30,7 +30,7 @@ public final class Team implements Model {
   public static final QueryField TEAM_NAME = field("Team", "teamName");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String teamName;
-  private final @ModelField(targetType="Task") @HasMany(associatedWith = "team", type = Task.class) List<Task> teamTasks = null;
+  private final @ModelField(targetType="Task") @HasMany(associatedWith = "teamName", type = Task.class) List<Task> teamTasks = null;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
