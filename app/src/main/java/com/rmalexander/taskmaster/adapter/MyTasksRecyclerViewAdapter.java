@@ -30,7 +30,6 @@ public class MyTasksRecyclerViewAdapter extends RecyclerView.Adapter<MyTasksRecy
 
     List<Task> taskList;
     Context callingActivity;
-    private Long id;
 
     public MyTasksRecyclerViewAdapter(List<Task> taskList, Context callingActivity){
 
@@ -51,7 +50,7 @@ public class MyTasksRecyclerViewAdapter extends RecyclerView.Adapter<MyTasksRecy
         TextView taskFragmentTextView = (TextView) holder.itemView.findViewById(R.id.taskFragmentTextView);
         Task displayedTask = taskList.get(position);
         DateFormat timeStampFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
-        timeStampFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        timeStampFormat.setTimeZone(TimeZone.getDefault());
         String timeStampString = "";
 
         try{
@@ -62,6 +61,8 @@ public class MyTasksRecyclerViewAdapter extends RecyclerView.Adapter<MyTasksRecy
         catch (ParseException parseException) {
             Log.e(TAG, "Failed to reformat timestamp: " + parseException.getMessage(), parseException);
         }
+
+        taskFragmentTextView.setText((position + 1 + ". " + displayedTask.getTitle()));
 
         View taskViewHolder = holder.itemView;
         taskViewHolder.setOnClickListener(view -> {
