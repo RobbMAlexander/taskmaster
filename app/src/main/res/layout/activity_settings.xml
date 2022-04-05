@@ -12,7 +12,7 @@
         android:layout_height="35dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
-        android:text="User Settings"
+        android:text="@string/user_settings"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,11 +24,13 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="92dp"
         android:ems="10"
-        android:hint="Username"
+        android:hint="@string/string_string_username"
         android:inputType="textPersonName"
-        android:text="Enter a username"
+        android:minHeight="48dp"
+        android:text="@string/string_enter_a_username"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsActivityTitleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/settingsActivityTitleTextView"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/settingsUsernameSubmitButton"
@@ -36,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="92dp"
-        android:text="Submit"
+        android:text="@string/submit"
         app:layout_constraintStart_toEndOf="@+id/settingsUsernameEntryEditText"
         app:layout_constraintTop_toBottomOf="@+id/settingsActivityTitleTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -107,4 +107,16 @@ Coded by Robb Alexander, 2022
 * Added Team model with one-to-many relationship to Task
     * Updated references to Task and constructors in-app accordingly
 
+### 4/4/22 (Lab 36: Cognito)
+WIP
+* Integrated AWS Cognito framework for user authentication.
 
+  * Added related activities: VerifyUser; SignUp; LogIn.
+
+  * Added intents (via button) on main activity to access new auth-related activities.
+
+  * Added Gradle dependencies for Cognito libraries.
+
+* Added an updated .apk to root directory
+
+* PENDING BUGFIXES -- crash on startup

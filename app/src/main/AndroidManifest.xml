@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rmalexander.taskmaster" >
+    package="com.rmalexander.taskmaster">
 
     <application
         android:name=".TaskMasterAmplifyApplication"
@@ -9,7 +9,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TaskMaster" >
+        android:theme="@style/Theme.TaskMaster">
+        <activity
+            android:name=".activity.VerifyUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.SettingsActivity"
             android:exported="false" />
@@ -24,7 +33,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.MyTasksActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -10,9 +10,10 @@
     <Spinner
         android:id="@+id/addTaskTeamSpinner"
         android:layout_width="178dp"
-        android:layout_height="33dp"
+        android:layout_height="48dp"
         android:layout_marginTop="112dp"
         android:layout_marginEnd="24dp"
+        android:contentDescription="@string/select_team"
         app:layout_constraintBottom_toTopOf="@+id/addTaskAddTaskButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addTaskTaskDescpritionTextEdit"
@@ -40,7 +41,8 @@
         android:text="@string/add_task"
         android:textColor="#020202"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <EditText
         android:id="@+id/addTaskTaskTitleTextEdit"
@@ -54,7 +56,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addTaskTextView1" />
+        app:layout_constraintTop_toBottomOf="@+id/addTaskTextView1"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/addTaskTaskDescpritionTextEdit"
@@ -67,13 +70,15 @@
         android:text="@string/do_something"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addTaskTaskTitleTextEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/addTaskTaskTitleTextEdit"
+        android:autofillHints="" />
 
     <Spinner
         android:id="@+id/addTaskProgressSpinner"
         android:layout_width="178dp"
-        android:layout_height="33dp"
+        android:layout_height="48dp"
         android:layout_marginTop="112dp"
+        android:contentDescription="@string/task_progress"
         app:layout_constraintBottom_toTopOf="@+id/addTaskAddTaskButton"
         app:layout_constraintEnd_toStartOf="@+id/addTaskTeamSpinner"
         app:layout_constraintStart_toStartOf="parent"
