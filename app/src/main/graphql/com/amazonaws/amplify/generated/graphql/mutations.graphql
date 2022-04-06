@@ -9,18 +9,26 @@ mutation CreateTask(
     description
     dateAdded
     progress
+    taskImageS3Key
     teamId
     teamName {
       id
       teamName
       teamTasks {
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateTask(
@@ -33,18 +41,26 @@ mutation UpdateTask(
     description
     dateAdded
     progress
+    taskImageS3Key
     teamId
     teamName {
       id
       teamName
       teamTasks {
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteTask(
@@ -57,18 +73,26 @@ mutation DeleteTask(
     description
     dateAdded
     progress
+    taskImageS3Key
     teamId
     teamName {
       id
       teamName
       teamTasks {
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation CreateTeam(
@@ -85,14 +109,22 @@ mutation CreateTeam(
         description
         dateAdded
         progress
+        taskImageS3Key
         teamId
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateTeam(
@@ -109,14 +141,22 @@ mutation UpdateTeam(
         description
         dateAdded
         progress
+        taskImageS3Key
         teamId
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteTeam(
@@ -133,13 +173,21 @@ mutation DeleteTeam(
         description
         dateAdded
         progress
+        taskImageS3Key
         teamId
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }

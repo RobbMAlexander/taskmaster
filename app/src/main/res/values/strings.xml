@@ -25,4 +25,5 @@
     <string name="string_enter_a_username">Enter a username</string>
     <string name="task_progress">Task Progress</string>
     <string name="select_team">Select Team</string>
+    <string name="email">Email</string>
 </resources>

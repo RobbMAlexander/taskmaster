@@ -74,9 +74,24 @@
         android:id="@+id/myTasksLogInButton"
         android:layout_width="112dp"
         android:layout_height="51dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="140dp"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#B1DDE1"
         android:text="Log In"
+        android:textColor="#070707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/myTasksLogOutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#B1DDE1"
+        android:text="Log Out"
+        android:textColor="#070707"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

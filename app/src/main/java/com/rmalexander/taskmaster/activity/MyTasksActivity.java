@@ -25,6 +25,10 @@ import com.amplifyframework.datastore.generated.model.Team;
 import com.rmalexander.taskmaster.R;
 import com.rmalexander.taskmaster.adapter.MyTasksRecyclerViewAdapter;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,10 +50,34 @@ public class MyTasksActivity extends AppCompatActivity {
 
         //seedTeams();
 
+        String testFileName = "testFileName";
+        File testFile = new File(getApplicationContext().getFilesDir(), "testFileName");
+
+        try {
+            BufferedWriter testFileBufferedWriter = new BufferedWriter(new FileWriter(testFile));
+            testFileBufferedWriter.append("This is practice text\nWith formatting tests");
+            testFileBufferedWriter.close();
+        } catch (IOException ioException) {
+            Log.e(TAG, "Failed to write file: " + testFileName);
+        }
+
+        String testFileS3Key = "testS3file.txt";
+
+        Amplify.Storage.uploadFile(
+                testFileS3Key,
+                testFile,
+                success -> {
+                    Log.i(TAG, "Successfully uploaded file with key: " + success.getKey());
+                },
+                failure -> {
+                    Log.i(TAG, "Failed to upload file: " + testFileName);
+                }
+        );
+
         wireSettingsButton();
         wireAddTaskButton();
         wireAllTasksButton();
-        wireLoginButton();
+        wireAuthButtons();
 
         String testDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
 
@@ -86,10 +114,10 @@ public class MyTasksActivity extends AppCompatActivity {
 
 
 
-        Amplify.Auth.fetchAuthSession(
+       /* Amplify.Auth.fetchAuthSession(
                 result -> Log.i("AmplifyQuickstart", result.toString()),
                 error -> Log.e("AmplifyQuickstart", error.toString())
-        );
+        ); */
 
     }
 
@@ -203,9 +231,29 @@ public class MyTasksActivity extends AppCompatActivity {
 
     }*/
 
-    private void wireLoginButton(){
+    private void wireAuthButtons(){
 
-       // Button loginButton =
+       Button logInButton = (Button) findViewById(R.id.myTasksLogInButton);
+       Button logOutButton = (Button) findViewById(R.id.myTasksLogOutButton);
+
+       logInButton.setOnClickListener(view -> {
+          Intent goToLogInIntent = new Intent(MyTasksActivity.this, LoginActivity.class);
+          startActivity(goToLogInIntent);
+       });
+
+       logOutButton.setOnClickListener(view -> {
+           Amplify.Auth.signOut(()-> {
+               Log.i(TAG, "Successfully logged out user");
+               runOnUiThread(()->{
+                   ((TextView) findViewById(R.id.myTasksTitleTextView)).setText("Welcome!");
+               });
+;
+           },
+                   failure -> {
+               Log.i(TAG, "Failure during logout: " + failure.toString());
+                   }
+                   );
+       });
 
     }
 

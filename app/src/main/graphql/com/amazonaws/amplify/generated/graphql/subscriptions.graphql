@@ -6,18 +6,26 @@ subscription OnCreateTask {
     description
     dateAdded
     progress
+    taskImageS3Key
     teamId
     teamName {
       id
       teamName
       teamTasks {
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateTask {
@@ -27,18 +35,26 @@ subscription OnUpdateTask {
     description
     dateAdded
     progress
+    taskImageS3Key
     teamId
     teamName {
       id
       teamName
       teamTasks {
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteTask {
@@ -48,18 +64,26 @@ subscription OnDeleteTask {
     description
     dateAdded
     progress
+    taskImageS3Key
     teamId
     teamName {
       id
       teamName
       teamTasks {
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnCreateTeam {
@@ -73,14 +97,22 @@ subscription OnCreateTeam {
         description
         dateAdded
         progress
+        taskImageS3Key
         teamId
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateTeam {
@@ -94,14 +126,22 @@ subscription OnUpdateTeam {
         description
         dateAdded
         progress
+        taskImageS3Key
         teamId
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteTeam {
@@ -115,13 +155,21 @@ subscription OnDeleteTeam {
         description
         dateAdded
         progress
+        taskImageS3Key
         teamId
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }

@@ -32,12 +32,14 @@ public final class Task implements Model {
   public static final QueryField DESCRIPTION = field("Task", "description");
   public static final QueryField DATE_ADDED = field("Task", "dateAdded");
   public static final QueryField PROGRESS = field("Task", "progress");
+  public static final QueryField TASK_IMAGE_S3_KEY = field("Task", "taskImageS3Key");
   public static final QueryField TEAM_NAME = field("Task", "teamId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String") String description;
   private final @ModelField(targetType="AWSDateTime") Temporal.DateTime dateAdded;
   private final @ModelField(targetType="TaskProgressEnum") TaskProgressEnum progress;
+  private final @ModelField(targetType="String") String taskImageS3Key;
   private final @ModelField(targetType="Team") @BelongsTo(targetName = "teamId", type = Team.class) Team teamName;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
@@ -61,6 +63,10 @@ public final class Task implements Model {
       return progress;
   }
   
+  public String getTaskImageS3Key() {
+      return taskImageS3Key;
+  }
+  
   public Team getTeamName() {
       return teamName;
   }
@@ -73,12 +79,13 @@ public final class Task implements Model {
       return updatedAt;
   }
   
-  private Task(String id, String title, String description, Temporal.DateTime dateAdded, TaskProgressEnum progress, Team teamName) {
+  private Task(String id, String title, String description, Temporal.DateTime dateAdded, TaskProgressEnum progress, String taskImageS3Key, Team teamName) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.dateAdded = dateAdded;
     this.progress = progress;
+    this.taskImageS3Key = taskImageS3Key;
     this.teamName = teamName;
   }
   
@@ -95,6 +102,7 @@ public final class Task implements Model {
               ObjectsCompat.equals(getDescription(), task.getDescription()) &&
               ObjectsCompat.equals(getDateAdded(), task.getDateAdded()) &&
               ObjectsCompat.equals(getProgress(), task.getProgress()) &&
+              ObjectsCompat.equals(getTaskImageS3Key(), task.getTaskImageS3Key()) &&
               ObjectsCompat.equals(getTeamName(), task.getTeamName()) &&
               ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt());
@@ -109,6 +117,7 @@ public final class Task implements Model {
       .append(getDescription())
       .append(getDateAdded())
       .append(getProgress())
+      .append(getTaskImageS3Key())
       .append(getTeamName())
       .append(getCreatedAt())
       .append(getUpdatedAt())
@@ -125,6 +134,7 @@ public final class Task implements Model {
       .append("description=" + String.valueOf(getDescription()) + ", ")
       .append("dateAdded=" + String.valueOf(getDateAdded()) + ", ")
       .append("progress=" + String.valueOf(getProgress()) + ", ")
+      .append("taskImageS3Key=" + String.valueOf(getTaskImageS3Key()) + ", ")
       .append("teamName=" + String.valueOf(getTeamName()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
@@ -151,6 +161,7 @@ public final class Task implements Model {
       null,
       null,
       null,
+      null,
       null
     );
   }
@@ -161,6 +172,7 @@ public final class Task implements Model {
       description,
       dateAdded,
       progress,
+      taskImageS3Key,
       teamName);
   }
   public interface TitleStep {
@@ -174,6 +186,7 @@ public final class Task implements Model {
     BuildStep description(String description);
     BuildStep dateAdded(Temporal.DateTime dateAdded);
     BuildStep progress(TaskProgressEnum progress);
+    BuildStep taskImageS3Key(String taskImageS3Key);
     BuildStep teamName(Team teamName);
   }
   
@@ -184,6 +197,7 @@ public final class Task implements Model {
     private String description;
     private Temporal.DateTime dateAdded;
     private TaskProgressEnum progress;
+    private String taskImageS3Key;
     private Team teamName;
     @Override
      public Task build() {
@@ -195,6 +209,7 @@ public final class Task implements Model {
           description,
           dateAdded,
           progress,
+          taskImageS3Key,
           teamName);
     }
     
@@ -224,6 +239,12 @@ public final class Task implements Model {
     }
     
     @Override
+     public BuildStep taskImageS3Key(String taskImageS3Key) {
+        this.taskImageS3Key = taskImageS3Key;
+        return this;
+    }
+    
+    @Override
      public BuildStep teamName(Team teamName) {
         this.teamName = teamName;
         return this;
@@ -241,12 +262,13 @@ public final class Task implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String description, Temporal.DateTime dateAdded, TaskProgressEnum progress, Team teamName) {
+    private CopyOfBuilder(String id, String title, String description, Temporal.DateTime dateAdded, TaskProgressEnum progress, String taskImageS3Key, Team teamName) {
       super.id(id);
       super.title(title)
         .description(description)
         .dateAdded(dateAdded)
         .progress(progress)
+        .taskImageS3Key(taskImageS3Key)
         .teamName(teamName);
     }
     
@@ -268,6 +290,11 @@ public final class Task implements Model {
     @Override
      public CopyOfBuilder progress(TaskProgressEnum progress) {
       return (CopyOfBuilder) super.progress(progress);
+    }
+    
+    @Override
+     public CopyOfBuilder taskImageS3Key(String taskImageS3Key) {
+      return (CopyOfBuilder) super.taskImageS3Key(taskImageS3Key);
     }
     
     @Override
