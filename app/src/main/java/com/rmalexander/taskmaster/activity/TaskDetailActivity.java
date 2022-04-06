@@ -1,8 +1,14 @@
 package com.rmalexander.taskmaster.activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -30,6 +36,8 @@ public class TaskDetailActivity extends AppCompatActivity {
     private Spinner progressSpinner = null;
     private EditText titleEditText;
     private EditText descriptionEditText;
+
+    ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +86,38 @@ public class TaskDetailActivity extends AppCompatActivity {
             Log.e(TAG, "ExecutionException occurred during: taskCompletableFuture.get()");
         }
 
+        // TODO add s3, come back
+       /*String s3Key = displayedTask.getTaskImageS3key();
+        if (s3Key != null && !s3Key.isEmpty()){
+
+        }*/
+
+
+    }
+
+    private void startImageSelectionIntent() {
+        Intent imageFileSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        imageFileSelectionIntent.setType("*/*");
+        imageFileSelectionIntent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/jpeg", "image/png"});
+    }
+
+    private void getImageSelectionActivityResultLauncher(){
+        ActivityResultLauncher<Intent> imageSelectionActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK){
+                            if (result.getData() != null) {
+                               Uri selectedImageUri = result.getData().getData();
+
+                            }
+                        } else {
+                            Log.e(TAG,"Activity result error in ActivityResultLauncher.onActivityResult");
+                        }
+                    }
+                }
+        );
     }
 
 }
