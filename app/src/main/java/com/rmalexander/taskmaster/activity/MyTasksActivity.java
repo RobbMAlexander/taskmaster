@@ -49,6 +49,7 @@ public class MyTasksActivity extends AppCompatActivity {
         wireSettingsButton();
         wireAddTaskButton();
         wireAllTasksButton();
+        wireLoginButton();
 
         String testDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
 
@@ -80,7 +81,15 @@ public class MyTasksActivity extends AppCompatActivity {
                 successResponse -> Log.i(TAG, "MyTasksActivity.onCreate(): successfully created new Task"),
                 failureResponse -> Log.i(TAG, "MyTasksActivity.onCreate(): failed --" + failureResponse)
         );*/
-                taskList = new ArrayList<>();
+
+        taskList = new ArrayList<>();
+
+
+
+        Amplify.Auth.fetchAuthSession(
+                result -> Log.i("AmplifyQuickstart", result.toString()),
+                error -> Log.e("AmplifyQuickstart", error.toString())
+        );
 
     }
 
@@ -102,13 +111,13 @@ public class MyTasksActivity extends AppCompatActivity {
                 {
                     Log.i(TAG, "Successfully loaded taskList");
                     taskList.clear();
-                    for (Task databaseTask : success.getData()){
+                    for (Task databaseTask : success.getData()) {
                         taskList.add(databaseTask);
                     }
 
                     runOnUiThread(() -> {
                         adapter.notifyDataSetChanged();
-                            });
+                    });
                 },
                 failure -> Log.i(TAG, "Failed to load taskList")
         );
@@ -193,5 +202,11 @@ public class MyTasksActivity extends AppCompatActivity {
         );
 
     }*/
+
+    private void wireLoginButton(){
+
+       // Button loginButton =
+
+    }
 
 }
