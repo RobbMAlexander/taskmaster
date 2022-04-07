@@ -86,7 +86,7 @@ public class TaskDetailActivity extends AppCompatActivity {
             Log.e(TAG, "ExecutionException occurred during: taskCompletableFuture.get()");
         }
 
-        // TODO add s3, come back
+        // TODO add s3, com
        /*String s3Key = displayedTask.getTaskImageS3key();
         if (s3Key != null && !s3Key.isEmpty()){
 

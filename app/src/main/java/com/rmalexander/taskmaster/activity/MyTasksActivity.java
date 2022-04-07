@@ -11,12 +11,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUser;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Task;
@@ -38,7 +40,7 @@ public class MyTasksActivity extends AppCompatActivity {
     SharedPreferences userPreferences;
     MyTasksRecyclerViewAdapter adapter;
     public final String TAG = "MyTasksActivity";
-    public static final String TASK_TITLE_EXTRA_TAG = "taskTitle";
+    //public static final String TASK_TITLE_EXTRA_TAG = "taskTitle";
     public static final String TASK_ID_EXTRA_TAG = "taskId";
     List<Task> taskList = null;
 
@@ -50,29 +52,7 @@ public class MyTasksActivity extends AppCompatActivity {
 
         //seedTeams();
 
-        String testFileName = "testFileName";
-        File testFile = new File(getApplicationContext().getFilesDir(), "testFileName");
 
-        try {
-            BufferedWriter testFileBufferedWriter = new BufferedWriter(new FileWriter(testFile));
-            testFileBufferedWriter.append("This is practice text\nWith formatting tests");
-            testFileBufferedWriter.close();
-        } catch (IOException ioException) {
-            Log.e(TAG, "Failed to write file: " + testFileName);
-        }
-
-        String testFileS3Key = "testS3file.txt";
-
-        Amplify.Storage.uploadFile(
-                testFileS3Key,
-                testFile,
-                success -> {
-                    Log.i(TAG, "Successfully uploaded file with key: " + success.getKey());
-                },
-                failure -> {
-                    Log.i(TAG, "Failed to upload file: " + testFileName);
-                }
-        );
 
         wireSettingsButton();
         wireAddTaskButton();
@@ -124,6 +104,18 @@ public class MyTasksActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        AuthUser authUser = Amplify.Auth.getCurrentUser();
+        String user = "";
+        Button logInButton = (Button) findViewById(R.id.myTasksLogInButton);
+        Button logOutButton = (Button) findViewById(R.id.myTasksLogOutButton);
+        if (authUser == null){
+            logInButton.setVisibility(View.VISIBLE); ;
+            logOutButton.setVisibility(View.INVISIBLE);
+        } else {
+            logInButton.setVisibility(View.INVISIBLE);
+            logOutButton.setVisibility(View.VISIBLE);
+        }
 
         userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String username = userPreferences.getString(USERNAME_TAG, "");
@@ -235,6 +227,7 @@ public class MyTasksActivity extends AppCompatActivity {
 
        Button logInButton = (Button) findViewById(R.id.myTasksLogInButton);
        Button logOutButton = (Button) findViewById(R.id.myTasksLogOutButton);
+       Button signUpButton = (Button) findViewById(R.id.myTasksSignUpButton);
 
        logInButton.setOnClickListener(view -> {
           Intent goToLogInIntent = new Intent(MyTasksActivity.this, LoginActivity.class);
@@ -246,6 +239,7 @@ public class MyTasksActivity extends AppCompatActivity {
                Log.i(TAG, "Successfully logged out user");
                runOnUiThread(()->{
                    ((TextView) findViewById(R.id.myTasksTitleTextView)).setText("Welcome!");
+                   logOutButton.setVisibility(View.INVISIBLE);
                });
 ;
            },
@@ -253,6 +247,11 @@ public class MyTasksActivity extends AppCompatActivity {
                Log.i(TAG, "Failure during logout: " + failure.toString());
                    }
                    );
+       });
+
+       signUpButton.setOnClickListener(view -> {
+           Intent goToSignUpIntent = new Intent(MyTasksActivity.this, SignUpActivity.class);
+           startActivity(goToSignUpIntent);
        });
 
     }

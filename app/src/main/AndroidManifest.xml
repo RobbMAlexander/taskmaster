@@ -24,13 +24,25 @@
             android:exported="false" />
         <activity
             android:name=".activity.TaskDetailActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter android:label="Select image for new task">
+                <action android:name="android.intent.action.SEND" />
+                <category  android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="image/*"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.AllTasksActivity"
             android:exported="false" />
         <activity
             android:name=".activity.AddTaskActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter android:label="Select task description text">
+            <action android:name="android.intent.action.SEND" />
+            <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.MyTasksActivity"
             android:exported="true">

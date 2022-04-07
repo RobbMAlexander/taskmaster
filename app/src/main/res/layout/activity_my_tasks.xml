@@ -7,6 +7,19 @@
     android:backgroundTint="#E1BAA7"
     tools:context=".activity.MyTasksActivity">
 
+    <Button
+        android:id="@+id/myTasksSignUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#B1DDE1"
+        android:text="Sign Up"
+        android:textColor="#070707"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/myTasksTitleTextView"
         android:layout_width="188dp"

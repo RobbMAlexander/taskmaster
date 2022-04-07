@@ -8,13 +8,13 @@
 
     <TextView
         android:id="@+id/taskDetailActivityTitleTextView"
-        android:layout_width="142dp"
-        android:layout_height="34dp"
+        android:layout_width="169dp"
+        android:layout_height="66dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:fontFamily="monospace"
         android:text="@string/task_detail"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,6 +25,55 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="84dp"
         android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore_et_dolore_magna_aliqua_praesent_tristique_magna_sit_amet_purus_gravida_faucibus_et_molestie_ac_feugiat_elementum_sagittis_vitae_et_leo_duis_ut_diam_proin_sed_libero_enim_sed_faucibus_dignissim_sodales_ut_eu_sem_duis_at_tellus_at_urna_condimentum_mattis_ultricies_mi_eget_mauris_pharetra_auctor_urna_nunc_id_cursus_metus_aliquam_eleifend_pulvinar_neque_laoreet_suspendisse_interdum_consectetur_libero_id_cursus_in_hac_habitasse_platea_dictumst_faucibus_interdum_posuere_lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_dignissim_enim_sit_amet_venenatis_urna_cursus"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskDetailActivityTitleTextView" />
+
+    <Button
+        android:id="@+id/taskDetailEditTaskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="#B1DDE1"
+        android:text="Edit Task"
+        android:textColor="#070707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taskDetailAddImageButton" />
+
+    <Button
+        android:id="@+id/taskDetailDeleteTaskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="#B1DDE1"
+        android:text="Delete Task"
+        android:textColor="#070707"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taskDetailDeleteImageButton" />
+
+    <Button
+        android:id="@+id/taskDetailAddImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="#B1DDE1"
+        android:text="Add Image"
+        android:textColor="#070707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taskDetailTaskBodyTextView" />
+
+    <Button
+        android:id="@+id/taskDetailDeleteImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="#B1DDE1"
+        android:text="Delete Image"
+        android:textColor="#070707"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taskDetailTaskBodyTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
