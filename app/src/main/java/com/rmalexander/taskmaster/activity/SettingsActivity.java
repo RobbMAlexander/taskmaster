@@ -18,6 +18,8 @@ public class SettingsActivity extends AppCompatActivity {
     SharedPreferences userPreferences;
     public static final String USERNAME_TAG = "username";
 
+    //TODO: add settings for task filter (like progress-- checkboxes? "Show completed tasks") -- wire to recyclerview
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -108,7 +108,7 @@ Coded by Robb Alexander, 2022
     * Updated references to Task and constructors in-app accordingly
 
 ### 4/4/22 (Lab 36: Cognito)
-WIP
+
 * Integrated AWS Cognito framework for user authentication.
 
   * Added related activities: VerifyUser; SignUp; LogIn.
@@ -119,4 +119,14 @@ WIP
 
 * Added an updated .apk to root directory
 
-* PENDING BUGFIXES -- crash on startup
+### 4/6/22 (Lab 38: Intent Filters)
+
+* Added `intent-filter` to manifest for addition / editing of Task fields from external activities.
+
+* WIP -- adding file upload functionality to TaskDetail activity
+
+* Set "Log In" & "Log Out" buttons on main page to use identical layout constraints with mutually exclusive rendering
+
+* Screenshots: ![Task Detail](screenshots/Screenshot_20220407_022140.png)
+
+* Added updated .apk to root directory
