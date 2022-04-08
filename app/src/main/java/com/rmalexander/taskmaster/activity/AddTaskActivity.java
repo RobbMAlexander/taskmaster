@@ -1,5 +1,7 @@
 package com.rmalexander.taskmaster.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -8,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
@@ -16,6 +19,8 @@ import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.TaskProgressEnum;
 import com.amplifyframework.datastore.generated.model.Team;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.snackbar.Snackbar;
 import com.rmalexander.taskmaster.R;
 
@@ -38,6 +43,8 @@ public class AddTaskActivity extends AppCompatActivity {
     List<Team> teamList;
     CompletableFuture<List<Team>> teamListFuture = null;
 
+    FusedLocationProviderClient locationProviderClient = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +52,25 @@ public class AddTaskActivity extends AppCompatActivity {
 
         //TODO: bring in Team objects
         teamListFuture = new CompletableFuture<>();
+
+        // TODO: look into requestcodes for location permissions
+        requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission()){
+
+            Log.e(TAG, "Location permissions have not been granted to application.");
+        }
+
+    
+
+        locationProviderClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+        locationProviderClient.getLastLocation().addOnSuccessListener(success -> {
+            Log.i(TAG, "Device latitude: " + success.getLatitude());
+            Log.i(TAG, "Device longitude: " + success.getLongitude());
+                });
+
+
+        //TODO: finish call
 
        wireAddTaskSpinners();
       wireAddTaskButton();
