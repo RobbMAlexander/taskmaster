@@ -9,6 +9,8 @@ type Task @model @auth(rules: [{allow: public}]){
   dateAdded: AWSDateTime
   progress: TaskProgressEnum
   taskImageS3Key: String
+  taskLatitude: String
+  taskLongitude: String
   teamId: ID! @index(name: "byTeam", sortKeyFields: ["title"])
   teamName: Team @belongsTo(fields: ["teamId"])
 }

@@ -86,59 +86,6 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "syncTasks",
-                        "description": null,
-                        "args": [
-                            {
-                                "name": "filter",
-                                "description": null,
-                                "type": {
-                                    "kind": "INPUT_OBJECT",
-                                    "name": "ModelTaskFilterInput",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "limit",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "Int",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "nextToken",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "lastSync",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "AWSTimestamp",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            }
-                        ],
-                        "type": {
-                            "kind": "OBJECT",
-                            "name": "ModelTaskConnection",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
                         "name": "getTeam",
                         "description": null,
                         "args": [
@@ -195,59 +142,6 @@
                                 "type": {
                                     "kind": "SCALAR",
                                     "name": "String",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            }
-                        ],
-                        "type": {
-                            "kind": "OBJECT",
-                            "name": "ModelTeamConnection",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "syncTeams",
-                        "description": null,
-                        "args": [
-                            {
-                                "name": "filter",
-                                "description": null,
-                                "type": {
-                                    "kind": "INPUT_OBJECT",
-                                    "name": "ModelTeamFilterInput",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "limit",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "Int",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "nextToken",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                },
-                                "defaultValue": null
-                            },
-                            {
-                                "name": "lastSync",
-                                "description": null,
-                                "type": {
-                                    "kind": "SCALAR",
-                                    "name": "AWSTimestamp",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -363,6 +257,30 @@
                         "deprecationReason": null
                     },
                     {
+                        "name": "taskLatitude",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "taskLongitude",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
                         "name": "teamId",
                         "description": null,
                         "args": [],
@@ -416,50 +334,6 @@
                             "ofType": {
                                 "kind": "SCALAR",
                                 "name": "AWSDateTime",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "_version",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "_deleted",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "Boolean",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "_lastChangedAt",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "AWSTimestamp",
                                 "ofType": null
                             }
                         },
@@ -664,50 +538,6 @@
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
-                    },
-                    {
-                        "name": "_version",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "Int",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "_deleted",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "Boolean",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "_lastChangedAt",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "NON_NULL",
-                            "name": null,
-                            "ofType": {
-                                "kind": "SCALAR",
-                                "name": "AWSTimestamp",
-                                "ofType": null
-                            }
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
                     }
                 ],
                 "inputFields": null,
@@ -858,6 +688,26 @@
                     },
                     {
                         "name": "taskImageS3Key",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "taskLatitude",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "taskLongitude",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -1475,32 +1325,10 @@
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
-                    },
-                    {
-                        "name": "startedAt",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "AWSTimestamp",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
                     }
                 ],
                 "inputFields": null,
                 "interfaces": [],
-                "enumValues": null,
-                "possibleTypes": null
-            },
-            {
-                "kind": "SCALAR",
-                "name": "AWSTimestamp",
-                "description": null,
-                "fields": null,
-                "inputFields": null,
-                "interfaces": null,
                 "enumValues": null,
                 "possibleTypes": null
             },
@@ -1605,18 +1433,6 @@
                         "type": {
                             "kind": "SCALAR",
                             "name": "String",
-                            "ofType": null
-                        },
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "startedAt",
-                        "description": null,
-                        "args": [],
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "AWSTimestamp",
                             "ofType": null
                         },
                         "isDeprecated": false,
@@ -1932,6 +1748,26 @@
                         "defaultValue": null
                     },
                     {
+                        "name": "taskLatitude",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "taskLongitude",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
                         "name": "teamId",
                         "description": null,
                         "type": {
@@ -1942,16 +1778,6 @@
                                 "name": "ID",
                                 "ofType": null
                             }
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "_version",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "Int",
-                            "ofType": null
                         },
                         "defaultValue": null
                     }
@@ -2008,6 +1834,26 @@
                     },
                     {
                         "name": "taskImageS3Key",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "taskLatitude",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "taskLongitude",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -2140,21 +1986,31 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "teamId",
+                        "name": "taskLatitude",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",
-                            "name": "ID",
+                            "name": "String",
                             "ofType": null
                         },
                         "defaultValue": null
                     },
                     {
-                        "name": "_version",
+                        "name": "taskLongitude",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",
-                            "name": "Int",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "teamId",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "ID",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -2181,16 +2037,6 @@
                                 "name": "ID",
                                 "ofType": null
                             }
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "_version",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "Int",
-                            "ofType": null
                         },
                         "defaultValue": null
                     }
@@ -2226,16 +2072,6 @@
                                 "name": "String",
                                 "ofType": null
                             }
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "_version",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "Int",
-                            "ofType": null
                         },
                         "defaultValue": null
                     }
@@ -2332,16 +2168,6 @@
                             "ofType": null
                         },
                         "defaultValue": null
-                    },
-                    {
-                        "name": "_version",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "Int",
-                            "ofType": null
-                        },
-                        "defaultValue": null
                     }
                 ],
                 "interfaces": null,
@@ -2365,16 +2191,6 @@
                                 "name": "ID",
                                 "ofType": null
                             }
-                        },
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "_version",
-                        "description": null,
-                        "type": {
-                            "kind": "SCALAR",
-                            "name": "Int",
-                            "ofType": null
                         },
                         "defaultValue": null
                     }
@@ -3275,6 +3091,16 @@
             {
                 "kind": "SCALAR",
                 "name": "AWSTime",
+                "description": null,
+                "fields": null,
+                "inputFields": null,
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "SCALAR",
+                "name": "AWSTimestamp",
                 "description": null,
                 "fields": null,
                 "inputFields": null,
