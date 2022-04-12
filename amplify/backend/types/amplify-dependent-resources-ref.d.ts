@@ -22,5 +22,23 @@ export type AmplifyDependentResourcesAttributes = {
             "BucketName": "string",
             "Region": "string"
         }
+    },
+    "analytics": {
+        "taskmaster": {
+            "Region": "string",
+            "Id": "string",
+            "appName": "string"
+        }
+    },
+    "predictions": {
+        "taskMasterSpeechGenerator": {
+            "region": "string",
+            "language": "string",
+            "voice": "string"
+        },
+        "taskMasterTextInterpreter": {
+            "region": "string",
+            "type": "string"
+        }
     }
 }

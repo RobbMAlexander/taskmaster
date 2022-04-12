@@ -1,0 +1,21 @@
+{
+    "appName": "taskmaster",
+    "roleName": "pinpointLambdaRolee9a9f18e",
+    "cloudformationPolicyName": "cloudformationPolicye9a9f18e",
+    "cloudWatchPolicyName": "cloudWatchPolicye9a9f18e",
+    "pinpointPolicyName": "pinpointPolicye9a9f18e",
+    "authPolicyName": "pinpoint_amplify_e9a9f18e",
+    "unauthPolicyName": "pinpoint_amplify_e9a9f18e",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

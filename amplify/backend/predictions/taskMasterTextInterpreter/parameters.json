@@ -1,0 +1,13 @@
+{
+    "resourceName": "taskMasterTextInterpreter",
+    "interpretPolicyName": "interpretPolicy9924b2c0",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "interpretType": "interpretText",
+    "type": "ALL",
+    "access": "authAndGuest"
+}
