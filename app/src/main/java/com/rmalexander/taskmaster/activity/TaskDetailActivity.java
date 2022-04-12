@@ -8,10 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,6 +24,12 @@ import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 import com.rmalexander.taskmaster.R;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -36,8 +45,11 @@ public class TaskDetailActivity extends AppCompatActivity {
     private Spinner progressSpinner = null;
     private EditText titleEditText;
     private EditText descriptionEditText;
+    private String s3Image1Key = "";
 
     ActivityResultLauncher<Intent> activityResultLauncher;
+
+    private MediaPlayer mediaPlayer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +61,13 @@ public class TaskDetailActivity extends AppCompatActivity {
         String taskId = "";
         taskCompletableFuture = new CompletableFuture<>();
 
+        mediaPlayer = new MediaPlayer();
+
         if (taskOriginIntent != null) {
             taskId = taskOriginIntent.getStringExtra(MyTasksActivity.TASK_ID_EXTRA_TAG);
         }
+
+        activityResultLauncher = getImageSelectionActivityResultLauncher();
 
         String intermediaryId = taskId;
 
@@ -92,6 +108,15 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         }*/
 
+        wireSpeechButton();
+
+        String taskDescription = taskDetailTaskBodyTextView.getText().toString();
+
+        Amplify.Predictions.interpret(
+                taskDescription,
+                result -> Log.i(TAG, result.getSentiment().getValue().toString()),
+                error -> Log.e(TAG, "Failed to interpret text", error)
+        );
 
     }
 
@@ -101,7 +126,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         imageFileSelectionIntent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/jpeg", "image/png"});
     }
 
-    private void getImageSelectionActivityResultLauncher(){
+    private ActivityResultLauncher<Intent> getImageSelectionActivityResultLauncher(){
         ActivityResultLauncher<Intent> imageSelectionActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -118,6 +143,38 @@ public class TaskDetailActivity extends AppCompatActivity {
                     }
                 }
         );
+        return imageSelectionActivityResultLauncher;
+    }
+
+    private void wireSpeechButton(){
+        ImageButton speechButton = (ImageButton) findViewById(R.id.taskDetailSpeechButton);
+        TextView taskDetailTaskBodyTextView = (TextView) findViewById(R.id.taskDetailTaskBodyTextView);
+        speechButton.setOnClickListener(view -> {
+            String taskDescription = taskDetailTaskBodyTextView.getText().toString();
+            Amplify.Predictions.convertTextToSpeech(
+                    taskDescription,
+                    result -> playAudio(result.getAudioData()),
+                    error -> Log.e(TAG, "Failure during Text-to-Speech conversion: ", error)
+            );
+        });
+    }
+
+    private void playAudio(InputStream inputStream) {
+        File mp3File = new File(getCacheDir(), "audio.mp3");
+
+        try (OutputStream output = new FileOutputStream(mp3File)) {
+            byte[] buffer = new byte[8 * 1_024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                output.write(buffer, 0, bytesRead);
+            }
+            mediaPlayer.reset();
+            mediaPlayer.setOnPreparedListener(MediaPlayer::start);
+            mediaPlayer.setDataSource(new FileInputStream(mp3File).getFD());
+            mediaPlayer.prepareAsync();
+        } catch (IOException ioException) {
+            Log.e(TAG, "Failed to write audio file", ioException);
+        }
     }
 
 }

@@ -130,3 +130,18 @@ Coded by Robb Alexander, 2022
 * Screenshots: ![Task Detail](screenshots/Screenshot_20220407_022140.png)
 
 * Added updated .apk to root directory
+
+### 4/11/22 (Lab 41: Analytics & Predictions)
+
+* Integrated Amazon Polly text-to-speech functionality in TaskDetailActivity (currently only for reading task description text)
+
+* Integrated Amazon Pinpoint functionality for tracking user engagement events on MyTasks activiy (for Add Tasks button press) and in AddTask activity (for task creation)
+
+* Integrated text interpretation (currently only in sentiment interpretation for task description text in TaskDetailActivity)
+
+* Screenshots:
+![Task Detail With Speech Button](screenshots/Screenshot_20220412_015927.png)
+
+![AWS Console -- Pinpoint data]()
+
+* Updated .apk in root directory

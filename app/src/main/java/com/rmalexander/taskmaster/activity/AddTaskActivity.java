@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.amplifyframework.analytics.AnalyticsEvent;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
@@ -56,18 +57,20 @@ public class AddTaskActivity extends AppCompatActivity {
         // TODO: look into requestcodes for location permissions
         requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission()){
+       /* if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission()){
 
             Log.e(TAG, "Location permissions have not been granted to application.");
-        }
+        }*/
 
     
 
         locationProviderClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
-        locationProviderClient.getLastLocation().addOnSuccessListener(success -> {
+        locationProviderClient.flushLocations();
+
+        /*locationProviderClient.getLastLocation().addOnSuccessListener(success -> {
             Log.i(TAG, "Device latitude: " + success.getLatitude());
             Log.i(TAG, "Device longitude: " + success.getLongitude());
-                });
+                }); */
 
 
         //TODO: finish call
@@ -150,6 +153,12 @@ public class AddTaskActivity extends AppCompatActivity {
                         successResponse -> Log.i(TAG, "AddTaskActivity.onCreate(): successfully added a new task"),
                         failureResponse -> Log.i(TAG, "AddTaskActivity.onCreate(): failed to add new task -- " + failureResponse)
                 );
+                //TODO: add analytic event to addTaskButton
+                AnalyticsEvent event = AnalyticsEvent.builder()
+                        .name("addedTask")
+                        .addProperty("taskAddedTimestamp", Long.toString(new Date().getTime()))
+                        .addProperty("eventDescription", "Added New Task")
+                        .build();
 
                 Snackbar.make(findViewById(R.id.addTaskAddTaskButton), "Task Added", Snackbar.LENGTH_SHORT).show();
             }

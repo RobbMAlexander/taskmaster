@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.amplifyframework.analytics.AnalyticsEvent;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.auth.AuthUser;
@@ -63,6 +64,13 @@ public class MyTasksActivity extends AppCompatActivity {
 
         List<Team> teamList = new ArrayList<>();
 
+        AnalyticsEvent event = AnalyticsEvent.builder()
+                .name("startedApp")
+                .addProperty("timeStarted", Long.toString(new Date().getTime()))
+                .addProperty("eventDescription", "Opened  MyTasksActivity")
+                .build();
+
+
         /*Amplify.API.query(
                 ModelQuery.list(Team.class),
                 success ->
@@ -104,6 +112,12 @@ public class MyTasksActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        AnalyticsEvent event = AnalyticsEvent.builder()
+                .name("resumedApp")
+                .addProperty("timeResumed", Long.toString(new Date().getTime()))
+                .addProperty("eventDescription", "Opened MyTasksActivity")
+                .build();
 
         AuthUser authUser = Amplify.Auth.getCurrentUser();
         String user = "";
@@ -147,6 +161,12 @@ public class MyTasksActivity extends AppCompatActivity {
 
     private void wireAddTaskButton() {
         Button addTaskButton = (Button) findViewById(R.id.myTasksAddTaskButton);
+
+        AnalyticsEvent event = AnalyticsEvent.builder()
+                .name("navigateAddTask")
+                .addProperty("timeNavigatedToAddTask", Long.toString(new Date().getTime()))
+                .addProperty("eventDescription", "Opened AddTaskActivity")
+                .build();
 
         addTaskButton.setOnClickListener(view ->
                 {
