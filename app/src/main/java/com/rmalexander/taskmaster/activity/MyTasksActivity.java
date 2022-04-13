@@ -2,6 +2,7 @@ package com.rmalexander.taskmaster.activity;
 
 import static com.rmalexander.taskmaster.activity.SettingsActivity.USERNAME_TAG;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,21 +18,27 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.amplifyframework.analytics.AnalyticsEvent;
-import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.auth.AuthUser;
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Task;
-import com.amplifyframework.datastore.generated.model.TaskProgressEnum;
 import com.amplifyframework.datastore.generated.model.Team;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.rmalexander.taskmaster.R;
 import com.rmalexander.taskmaster.adapter.MyTasksRecyclerViewAdapter;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +51,9 @@ public class MyTasksActivity extends AppCompatActivity {
     //public static final String TASK_TITLE_EXTRA_TAG = "taskTitle";
     public static final String TASK_ID_EXTRA_TAG = "taskId";
     List<Task> taskList = null;
+
+    private RewardedAd rewardAd = null;
+    private InterstitialAd interAd = null;
 
 
     @Override
@@ -59,6 +69,7 @@ public class MyTasksActivity extends AppCompatActivity {
         wireAddTaskButton();
         wireAllTasksButton();
         wireAuthButtons();
+        wireAds();
 
         String testDate = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
 
@@ -70,33 +81,6 @@ public class MyTasksActivity extends AppCompatActivity {
                 .addProperty("eventDescription", "Opened  MyTasksActivity")
                 .build();
 
-
-        /*Amplify.API.query(
-                ModelQuery.list(Team.class),
-                success ->
-                {
-                    Log.i(TAG, "Successfully loaded teamList");
-                    teamList.clear();
-                    for (Team databaseTeam : success.getData()){
-                        teamList.add(databaseTeam);
-                    };
-                },
-                failure -> Log.i(TAG, "Failed to load teamList")
-        );*/
-
-        /*Task testTask =
-                Task.builder()
-                    .title("Test app")
-                    .description("functionality")
-                    .dateAdded(new Temporal.DateTime(testDate))
-                    .progress(TaskProgressEnum.New)
-                        .teamName(Team teamOne)
-                    .build();
-        Amplify.API.mutate(
-                ModelMutation.create(testTask),
-                successResponse -> Log.i(TAG, "MyTasksActivity.onCreate(): successfully created new Task"),
-                failureResponse -> Log.i(TAG, "MyTasksActivity.onCreate(): failed --" + failureResponse)
-        );*/
 
         taskList = new ArrayList<>();
 
@@ -275,5 +259,72 @@ public class MyTasksActivity extends AppCompatActivity {
        });
 
     }
+
+    private void wireAds(){
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+
+            }
+        });
+
+        AdView bannerAdView = findViewById(R.id.myTasksBannerAdAdView);
+        AdRequest bannerAdRequest = new AdRequest.Builder().build();
+        bannerAdView.loadAd(bannerAdRequest);
+
+            AdRequest rewardedAdRequest = new AdRequest.Builder().build();
+
+            RewardedAd.load(this, "ca-app-pub-3940256099942544/5224354917",
+                    rewardedAdRequest, new RewardedAdLoadCallback()
+                    {
+                        @Override
+                        public void onAdFailedToLoad(@NonNull LoadAdError loadAdError)
+                        {
+                            Log.d(TAG, loadAdError.getMessage());
+                            rewardAd = null;
+                        }
+
+                        @Override
+                        public void onAdLoaded(@NonNull RewardedAd rewardedAd)
+                        {
+                            rewardAd = rewardedAd;
+                            Log.d(TAG, "Successfully loaded ad");
+
+                            rewardAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                                @Override
+                                public void onAdShowedFullScreenContent() {
+                                    Log.d(TAG, "Successfully displayed ad");
+                                }
+
+                                @Override
+                                public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                    Log.d(TAG, "Failed to display ad");
+                                }
+
+                                @Override
+                                public void onAdDismissedFullScreenContent() {
+                                    Log.d(TAG, "Ad was closed");
+                                    rewardAd = null;
+                                }
+                            });
+                        }
+                    });
+
+            Button rewardAdButton = (Button)findViewById(R.id.allTasksAdTestButton);
+            rewardAdButton.setOnClickListener(b -> {
+                if (rewardAd != null) {
+                    rewardAd.show(MyTasksActivity.this, new OnUserEarnedRewardListener() {
+                        @Override
+                        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                            int rewardAmount = rewardItem.getAmount();
+                            String rewardType = rewardItem.getType();
+                            Log.d(TAG, "User reward was granted: " + rewardAmount + " of " + rewardType);
+                        }
+                    });
+                } else {
+                    Log.d(TAG, "Failed to grant reward");
+                }
+            });
+        }
 
 }

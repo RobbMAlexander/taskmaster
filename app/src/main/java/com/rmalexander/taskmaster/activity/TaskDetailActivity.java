@@ -114,7 +114,7 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         Amplify.Predictions.interpret(
                 taskDescription,
-                result -> Log.i(TAG, result.getSentiment().getValue().toString()),
+                result -> Log.i(TAG, "Task description sentiment: " +  result.getSentiment().getValue().toString()),
                 error -> Log.e(TAG, "Failed to interpret text", error)
         );
 
