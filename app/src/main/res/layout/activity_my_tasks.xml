@@ -8,6 +8,20 @@
     tools:context=".activity.MyTasksActivity">
 
     <Button
+        android:id="@+id/allTasksAdTestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="516dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="25dp"
+        android:backgroundTint="#B1DDE1"
+        android:text="Ad Test"
+        android:textColor="#070707"
+        app:layout_constraintBottom_toTopOf="@+id/myTasksAllTasksButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/myTasksSignUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -107,5 +121,19 @@
         app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/myTasksBannerAdAdView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myTasksAddTaskButton"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

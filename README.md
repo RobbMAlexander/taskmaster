@@ -145,3 +145,12 @@ Coded by Robb Alexander, 2022
 ![AWS Console -- Pinpoint data]()
 
 * Updated .apk in root directory
+
+### 4/12/22 (Lab 42: AdMob)
+
+* Integrated Google AdMob functionality: Added banner ad to bottom of main MyTasksActivity; added rewarded ad button to main MyTasksActivity
+
+* Screenshots:
+![MyTasksActivity with displayed test ad](screenshots/Screenshot_20220413_013728.png)
+
+* Updated .apk in root directory
